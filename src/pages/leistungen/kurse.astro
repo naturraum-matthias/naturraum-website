@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const alleKurse = await getCollection('kurse', ({ data }) => data.aktiv);
+---
+
+<BaseLayout titel="Kurse & Workshops" beschreibung="Wildnispädagogik, essbare Wildpflanzen, BushCraft und mehr — praktische Kurse mit NaturRaum.">
+
+  <section class="seiten-hero">
+    <div class="seiten-hero__bild-wrapper">
+      <img src="/bilder/essbare Wildpflanzen/Waldkräuter.jpg" alt="Essbare Waldkräuter" />
+      <div class="seiten-hero__overlay"></div>
+    </div>
+    <div class="container seiten-hero__inhalt">
+      <p class="seiten-hero__label">Leistungen</p>
+      <h1>Kurse & Workshops</h1>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container container--schmal">
+      <h2>Natur erleben — nicht nur lesen</h2>
+      <div class="trennlinie" style="margin: 1rem 0;"></div>
+      <p style="font-size: 1.1rem;">
+        Meine Kurse sind praxisnah, bodenständig und unvergesslich. Ob du essbare Wildpflanzen
+        kennenlernen, Spuren lesen lernen oder einfach einen Tag raus in die Natur möchtest —
+        hier findest du das passende Angebot.
+      </p>
+    </div>
+  </section>
+
+  <!-- Kursthemen-Übersicht -->
+  <section class="sektion sektion--hell">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Kursthemen</h2>
+        <div class="trennlinie"></div>
+      </div>
+      <div class="kursthemen-grid">
+        <div class="kursthema">
+          <img src="/bilder/Wildnispädagogik/Laubhüttenbau beim Kindergeburtstag.jpg" alt="Wildnispädagogik" />
+          <h4>Wildnispädagogik</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/essbare Wildpflanzen/Die mächtigen Drei_Brennnessel, Giersch, Löwenzahn.jpg" alt="Essbare Wildpflanzen" />
+          <h4>Essbare Wildpflanzen</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/essbare Wildpflanzen/Waldkräuter.jpg" alt="Naturverbindung" />
+          <h4>Naturverbindung</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/Wildnispädagogik/Spuren lesen.jpg" alt="Spuren lesen" />
+          <h4>Spuren lesen</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/Wildnispädagogik/Wildtiere hautnah/Wildtiere hautnah.jpg" alt="Wildtiere hautnah" />
+          <h4>Wildtiere hautnah</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/wilde Küche/Wildkräuter-Chips.jpg" alt="Wilde Küche" />
+          <h4>Wilde Küche</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/Waldgärten/Lichtung, Waldgarten Ahaus.jpg" alt="Outdoor Seminar" />
+          <h4>Outdoor-Seminare</h4>
+        </div>
+        <div class="kursthema">
+          <img src="/bilder/Permakultur-Elemente/Feuerstelle.JPG" alt="BushCraft" />
+          <h4>BushCraft</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aktuelle Kurse aus MD-Dateien -->
+  {alleKurse.length > 0 && (
+    <section class="sektion">
+      <div class="container">
+        <div class="abschnitt-kopf">
+          <h2>Aktuelle Kursangebote</h2>
+          <div class="trennlinie"></div>
+        </div>
+        <div class="grid-3">
+          {alleKurse.map(kurs => (
+            <div class="kurs-karte">
+              {kurs.data.titelbild && (
+                <img
+                  src={`/bilder/kurse/${kurs.data.titelbild}`}
+                  alt={kurs.data.titel}
+                  class="kurs-karte__bild"
+                />
+              )}
+              <div class="kurs-karte__inhalt">
+                <span class="badge">{kurs.data.kategorie}</span>
+                <h4>{kurs.data.titel}</h4>
+                {kurs.data.datum && <p class="kurs-karte__info">📅 {kurs.data.datum}</p>}
+                {kurs.data.ort && <p class="kurs-karte__info">📍 {kurs.data.ort}</p>}
+                {kurs.data.dauer && <p class="kurs-karte__info">⏱️ {kurs.data.dauer}</p>}
+                {kurs.data.preis && <p class="kurs-karte__preis">{kurs.data.preis} €</p>}
+                {kurs.data.buchungslink
+                  ? <a href={kurs.data.buchungslink} class="btn btn--primaer" style="font-size: 0.9rem; margin-top: 1rem;">Jetzt anmelden</a>
+                  : <a href="/kontakt" class="btn btn--outline" style="font-size: 0.9rem; margin-top: 1rem;">Anfragen</a>
+                }
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- TeamTage -->
+  <section class="sektion sektion--hell">
+    <div class="container inhalt-mit-bild">
+      <div>
+        <h2>TeamTage & Outdoor-Seminare</h2>
+        <div class="trennlinie" style="margin: 1rem 0;"></div>
+        <p>
+          Naturerfahrungen schweißen zusammen — und das auf eine nachhaltige Art. Meine TeamTage
+          verbinden Naturverbindung, praktische Erfahrungen und Teamdynamik.
+        </p>
+        <p>
+          Ob Laubhüttenbau, gemeinsames Kochen mit Wildpflanzen oder Spuren lesen —
+          die Teilnehmenden nehmen Erfahrungen mit, die lange in Erinnerung bleiben.
+        </p>
+        <a href="/kontakt" class="btn btn--outline" style="margin-top: 1.5rem;">TeamTag anfragen</a>
+      </div>
+      <div>
+        <img src="/bilder/Wildnispädagogik/Laubhüttenbau beim Kindergeburtstag.jpg" alt="Laubhüttenbau" class="inhalt-bild" />
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Kein passendes Angebot gefunden?</h2>
+      <p>Ich entwickle auch maßgeschneiderte Kurse — schreib mir einfach.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/termine" class="btn btn--primaer">Alle Termine ansehen</a>
+        <a href="/kontakt" class="btn btn--sekundaer">Individuell anfragen</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .seiten-hero {
+    position: relative; height: 50vh; min-height: 350px;
+    display: flex; align-items: flex-end; padding-bottom: 3rem; padding-top: 80px;
+  }
+  .seiten-hero__bild-wrapper { position: absolute; inset: 0; }
+  .seiten-hero__bild-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .seiten-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.8) 0%, rgba(44,44,44,0.3) 60%); }
+  .seiten-hero__inhalt { position: relative; z-index: 1; color: white; }
+  .seiten-hero__label { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.5rem; }
+  .seiten-hero__inhalt h1 { color: white; }
+
+  .kursthemen-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .kursthema {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .kursthema img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .kursthema:hover img { transform: scale(1.05); }
+
+  .kursthema h4 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    color: white;
+    padding: 1rem 0.75rem 0.75rem;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .kurs-karte {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--schatten-s);
+  }
+
+  .kurs-karte__bild {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .kurs-karte__inhalt {
+    padding: 1.5rem;
+  }
+
+  .kurs-karte__inhalt h4 { margin: 0.5rem 0; }
+
+  .kurs-karte__info {
+    color: var(--farbe-text-hell);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .kurs-karte__preis {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--farbe-lila);
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .inhalt-mit-bild {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .inhalt-bild {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--schatten-m);
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(91,122,74,0.1);
+    color: var(--farbe-oliv);
+    border: 1px solid rgba(91,122,74,0.3);
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xl) 0;
+    text-align: center;
+    color: white;
+  }
+  .cta-banner h2 { color: white; margin-bottom: 0.75rem; }
+  .cta-banner p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
+
+  @media (max-width: 900px) {
+    .kursthemen-grid { grid-template-columns: repeat(2, 1fr); }
+    .inhalt-mit-bild { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .kursthemen-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

@@ -1,0 +1,164 @@
+---
+const jahr = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__marke">
+      <img src="/bilder/allgemein/logo-weiss.png" alt="NaturRaum Logo" width="70" height="70" />
+      <p class="footer__slogan">Natur wahrnehmen und gestalten</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer-Navigation">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/ueber-mich">Über mich</a></li>
+        <li><a href="/leistungen">Leistungen</a></li>
+        <li><a href="/projekte">Projekte</a></li>
+        <li><a href="/termine">Termine & Kurse</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__leistungen">
+      <h4>Leistungen</h4>
+      <ul>
+        <li><a href="/leistungen/beratung">Beratung</a></li>
+        <li><a href="/leistungen/coaching">Coaching</a></li>
+        <li><a href="/leistungen/kurse">Kurse & Workshops</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__kontakt">
+      <h4>Kontakt</h4>
+      <p>Interesse an Permakultur-Beratung oder einem Kurs?</p>
+      <a href="/kontakt" class="btn btn--sekundaer" style="margin-top: 0.8rem; display: inline-block;">Anfrage stellen</a>
+    </div>
+  </div>
+
+  <div class="footer__unten">
+    <div class="container">
+      <p>© {jahr} NaturRaum — Natur wahrnehmen und gestalten</p>
+      <div class="footer__links">
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #3D5A2A;
+    color: white;
+    margin-top: auto;
+  }
+
+  .footer__inner h4 {
+    color: #C8A96E;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .footer__marke img {
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+  }
+
+  .footer__slogan {
+    color: rgba(255,255,255,0.85);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  .footer__inner h4 {
+    color: white;
+    font-family: var(--font-headline);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .footer__inner ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer__inner a {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+
+  .footer__inner a:hover {
+    color: white;
+  }
+
+  .footer__kontakt p {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .footer__unten {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding: 1.2rem 0;
+  }
+
+  .footer__unten .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer__unten p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .footer__links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer__links a {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer__links a:hover {
+    color: white;
+  }
+
+  @media (max-width: 900px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__unten .container {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,237 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const alleTermine = await getCollection('termine', ({ data }) => data.aktiv);
+const sortiert = alleTermine.sort((a, b) => a.data.datum.localeCompare(b.data.datum));
+---
+
+<BaseLayout titel="Termine & Kurse" beschreibung="Aktuelle Termine für Kurse, Workshops und Seminare mit NaturRaum.">
+
+  <section class="seiten-hero">
+    <div class="seiten-hero__bild-wrapper">
+      <img src="/bilder/Wildnispädagogik/Wildtiere hautnah/Wildtiere hautnah.jpg" alt="Wildtiere in der Natur" />
+      <div class="seiten-hero__overlay"></div>
+    </div>
+    <div class="container seiten-hero__inhalt">
+      <p class="seiten-hero__label">Kalender</p>
+      <h1>Termine & Kurse</h1>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Aktuelle Angebote</h2>
+        <div class="trennlinie"></div>
+        <p>Alle Termine auf einen Blick — von Tagesworkshops bis mehrtägigen Seminaren</p>
+      </div>
+
+      {sortiert.length > 0 ? (
+        <div class="termine-liste">
+          {sortiert.map(termin => (
+            <div class="termin-zeile">
+              <div class="termin-zeile__datum">
+                <div class="termin-zeile__datum-text">{termin.data.datum}</div>
+                {termin.data.uhrzeit && <div class="termin-zeile__uhrzeit">{termin.data.uhrzeit}</div>}
+              </div>
+              <div class="termin-zeile__inhalt">
+                <div class="termin-zeile__kopf">
+                  <h3>{termin.data.titel}</h3>
+                  <span class="badge">{termin.data.typ}</span>
+                </div>
+                <div class="termin-zeile__details">
+                  <span>📍 {termin.data.ort}</span>
+                  {termin.data.dauer && <span>⏱️ {termin.data.dauer}</span>}
+                  {termin.data.plaetze && <span>👥 {termin.data.plaetze} Plätze</span>}
+                  {termin.data.preis && <span>💶 {termin.data.preis} €</span>}
+                </div>
+              </div>
+              <div class="termin-zeile__aktion">
+                {termin.data.buchungslink
+                  ? <a href={termin.data.buchungslink} class="btn btn--primaer">Anmelden</a>
+                  : <a href="/kontakt" class="btn btn--outline">Anfragen</a>
+                }
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="leer-hinweis">
+          <p>Aktuell sind keine Termine eingetragen.</p>
+          <p>Du kannst dir gerne eine individuelle Anfrage stellen — ich erstelle auch maßgeschneiderte Kursformate.</p>
+          <a href="/kontakt" class="btn btn--primaer" style="margin-top: 1rem;">Individuell anfragen</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Kursthemen -->
+  <section class="sektion sektion--hell">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Mein Kursangebot</h2>
+        <div class="trennlinie"></div>
+        <p>Diese Themen biete ich als Kurse, Workshops und TeamTage an</p>
+      </div>
+      <div class="grid-3">
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🦅</div>
+          <h4>Wildnispädagogik</h4>
+          <p>Natur tief erleben, Sinne schärfen, Verbindung zur Wildnis aufbauen</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🌿</div>
+          <h4>Essbare Wildpflanzen</h4>
+          <p>Sicher erkennen, nachhaltig sammeln, kreativ zubereiten</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🐾</div>
+          <h4>Spuren lesen</h4>
+          <p>Tierspuren, Fraßspuren und Zeichen der Natur deuten lernen</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🏕️</div>
+          <h4>BushCraft & Outdoor</h4>
+          <p>Feuer, Unterkunft, Orientierung — Grundfertigkeiten in der Wildnis</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🍲</div>
+          <h4>Wilde Küche</h4>
+          <p>Kochen mit essbaren Wild- und Waldpflanzen — von der Wiese in den Topf</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">👥</div>
+          <h4>TeamTage</h4>
+          <p>Naturverbindung als Teamerlebnis — nachhaltig in Erinnerung</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Nichts Passendes gefunden?</h2>
+      <p>Ich entwickle gerne einen maßgeschneiderten Workshop für dich oder deine Gruppe.</p>
+      <a href="/kontakt" class="btn btn--sekundaer">Individuell anfragen</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .seiten-hero {
+    position: relative; height: 50vh; min-height: 350px;
+    display: flex; align-items: flex-end; padding-bottom: 3rem; padding-top: 80px;
+  }
+  .seiten-hero__bild-wrapper { position: absolute; inset: 0; }
+  .seiten-hero__bild-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+  .seiten-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.8) 0%, rgba(44,44,44,0.3) 60%); }
+  .seiten-hero__inhalt { position: relative; z-index: 1; color: white; }
+  .seiten-hero__label { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.5rem; }
+  .seiten-hero__inhalt h1 { color: white; }
+
+  .termine-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .termin-zeile {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--schatten-s);
+    border-left: 4px solid var(--farbe-rostrot);
+  }
+
+  .termin-zeile__datum-text {
+    font-weight: 700;
+    color: var(--farbe-ocker);
+    font-size: 0.95rem;
+  }
+
+  .termin-zeile__uhrzeit {
+    color: var(--farbe-text-hell);
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+  }
+
+  .termin-zeile__kopf {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .termin-zeile__kopf h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(91,122,74,0.1);
+    color: var(--farbe-oliv);
+    border: 1px solid rgba(91,122,74,0.3);
+    border-radius: 20px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .termin-zeile__details {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: var(--farbe-text-hell);
+    font-size: 0.9rem;
+  }
+
+  .thema-karte {
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem;
+    box-shadow: var(--schatten-s);
+    text-align: center;
+  }
+
+  .thema-karte__icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .thema-karte h4 { margin-bottom: 0.5rem; }
+  .thema-karte p { color: var(--farbe-text-hell); font-size: 0.9rem; }
+
+  .leer-hinweis {
+    text-align: center;
+    padding: var(--abstand-xl);
+    background: var(--farbe-hintergrund);
+    border-radius: 12px;
+  }
+
+  .leer-hinweis p { color: var(--farbe-text-hell); }
+
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xl) 0;
+    text-align: center;
+    color: white;
+  }
+  .cta-banner h2 { color: white; margin-bottom: 0.75rem; }
+  .cta-banner p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
+
+  @media (max-width: 768px) {
+    .termin-zeile {
+      grid-template-columns: 1fr;
+    }
+
+    .termin-zeile__datum {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout titel="Beratung" beschreibung="Permakultur- und Agroforst-Beratung — gezielte Analyse und Planung für deinen Garten oder deine Fläche.">
+
+  <section class="seiten-hero">
+    <div class="seiten-hero__bild-wrapper">
+      <img src="/bilder/designs/Permakultur-Projekt bei Coesfeld_Entwurf.jpg" alt="Permakultur-Entwurf" />
+      <div class="seiten-hero__overlay"></div>
+    </div>
+    <div class="container seiten-hero__inhalt">
+      <p class="seiten-hero__label">Leistungen</p>
+      <h1>Beratung</h1>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container inhalt-mit-bild">
+      <div>
+        <h2>Gezielter Fahrplan für dein Projekt</h2>
+        <div class="trennlinie" style="margin: 1rem 0;"></div>
+        <p>
+          Manchmal reicht ein klarer Blick von außen. In meiner Beratung analysieren wir gemeinsam
+          deine Fläche, deine Ziele und deine Ressourcen — und ich entwickle konkrete Handlungsempfehlungen,
+          die du direkt umsetzen kannst.
+        </p>
+        <p>
+          Die Beratung ist auf einen überschaubaren Zeitrahmen ausgelegt: ein oder mehrere Beratungsgespräche
+          und/oder ein Vor-Ort-Termin, der dir einen klaren Fahrplan gibt.
+        </p>
+        <h3 style="margin-top: 2rem;">Themenfelder</h3>
+        <ul class="themen-liste">
+          <li>🌿 <strong>Permakultur-Design</strong> — Zonenplanung, Sektorenanalyse, Elementen-Auswahl</li>
+          <li>🌳 <strong>Agroforst</strong> — Gehölz-Reihen, Kombinationen mit Acker- oder Weideland</li>
+          <li>🌲 <strong>Waldgarten</strong> — Schichtenaufbau, Artenauswahl, Sukzession planen</li>
+          <li>🌱 <strong>Essbare Wildpflanzen</strong> — Integration in Garten und Landschaft</li>
+          <li>🍎 <strong>Baumpflege & Obstwiese</strong> — Schnitt, Sortenauswahl, Pflege</li>
+        </ul>
+      </div>
+      <div>
+        <img src="/bilder/designs/Waldgarten bei Aurich_finaler Entwurf.png" alt="Waldgarten-Entwurf" class="inhalt-bild" />
+        <img src="/bilder/designs/Zonierung.png" alt="Zonierungsplan" class="inhalt-bild" style="margin-top: 1rem;" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sektion sektion--hell">
+    <div class="container container--schmal">
+      <div class="abschnitt-kopf">
+        <h2>Wie läuft eine Beratung ab?</h2>
+        <div class="trennlinie"></div>
+      </div>
+      <div class="ablauf">
+        <div class="ablauf-schritt">
+          <div class="ablauf-schritt__nr">1</div>
+          <div>
+            <h4>Erstkontakt & Vorgespräch</h4>
+            <p>Du schilderst mir dein Vorhaben und deine Fläche. Gemeinsam klären wir, was du brauchst und ob eine Beratung oder ein Coaching sinnvoller ist.</p>
+          </div>
+        </div>
+        <div class="ablauf-schritt">
+          <div class="ablauf-schritt__nr">2</div>
+          <div>
+            <h4>Vor-Ort-Termin (optional)</h4>
+            <p>Ich besuche deine Fläche und nehme eine Standortanalyse vor: Boden, Wasser, Licht, Wind, bestehende Vegetation.</p>
+          </div>
+        </div>
+        <div class="ablauf-schritt">
+          <div class="ablauf-schritt__nr">3</div>
+          <div>
+            <h4>Konzept & Empfehlungen</h4>
+            <p>Du erhältst konkrete schriftliche Empfehlungen — von der Zonenplanung bis zur Artenliste — als praktischen Leitfaden.</p>
+          </div>
+        </div>
+        <div class="ablauf-schritt">
+          <div class="ablauf-schritt__nr">4</div>
+          <div>
+            <h4>Nachfragen willkommen</h4>
+            <p>Nach der Beratung stehe ich für Rückfragen zur Verfügung. Du bist nicht allein gelassen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Bereit für deinen Fahrplan?</h2>
+      <p>Kontaktiere mich für ein unverbindliches Erstgespräch.</p>
+      <a href="/kontakt" class="btn btn--sekundaer">Beratung anfragen</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .seiten-hero {
+    position: relative; height: 50vh; min-height: 350px;
+    display: flex; align-items: flex-end; padding-bottom: 3rem; padding-top: 80px;
+  }
+  .seiten-hero__bild-wrapper { position: absolute; inset: 0; }
+  .seiten-hero__bild-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .seiten-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.8) 0%, rgba(44,44,44,0.3) 60%); }
+  .seiten-hero__inhalt { position: relative; z-index: 1; color: white; }
+  .seiten-hero__label { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.5rem; }
+  .seiten-hero__inhalt h1 { color: white; }
+
+  .inhalt-mit-bild {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .inhalt-bild {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--schatten-s);
+  }
+
+  .themen-liste {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .themen-liste li {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .ablauf {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .ablauf-schritt {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .ablauf-schritt__nr {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--farbe-dunkeloliv);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-headline);
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .ablauf-schritt h4 { margin-bottom: 0.3rem; }
+  .ablauf-schritt p { color: var(--farbe-text-hell); }
+
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xl) 0;
+    text-align: center;
+    color: white;
+  }
+  .cta-banner h2 { color: white; margin-bottom: 0.75rem; }
+  .cta-banner p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
+
+  @media (max-width: 900px) {
+    .inhalt-mit-bild { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const alleProjekte = await getCollection('projekte');
+const sortiert = alleProjekte.sort((a, b) => (b.data.jahr ?? 0) - (a.data.jahr ?? 0));
+---
+
+<BaseLayout titel="Projekte & Referenzen" beschreibung="Permakultur-Projekte, Waldgärten und Agroforst-Flächen — Einblicke in meine Arbeit.">
+
+  <section class="seiten-hero">
+    <div class="seiten-hero__bild-wrapper">
+      <img src="/bilder/Waldgärten/Waldgarten Ahaus, Vogelperspektive.jpg" alt="Waldgarten Vogelperspektive" />
+      <div class="seiten-hero__overlay"></div>
+    </div>
+    <div class="container seiten-hero__inhalt">
+      <p class="seiten-hero__label">Referenzen</p>
+      <h1>Projekte</h1>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Gelebte Permakultur</h2>
+        <div class="trennlinie"></div>
+        <p>Von kleinen Gartenprojekten bis zu großen Agroforst-Flächen — jedes Projekt ist einzigartig.</p>
+      </div>
+
+      {sortiert.length > 0 ? (
+        <div class="grid-2">
+          {sortiert.map(projekt => (
+            <a href={`/projekte/${projekt.id}`} class="projekt-karte">
+              {projekt.data.titelbild && (
+                <img
+                  src={`/bilder/projekte/${projekt.data.titelbild}`}
+                  alt={projekt.data.titel}
+                  class="projekt-karte__bild"
+                />
+              )}
+              {!projekt.data.titelbild && (
+                <div class="projekt-karte__bild projekt-karte__bild--placeholder"></div>
+              )}
+              <div class="projekt-karte__inhalt">
+                <div class="projekt-karte__meta">
+                  <span class="badge">{projekt.data.kategorie}</span>
+                  {projekt.data.jahr && <span class="projekt-karte__jahr">{projekt.data.jahr}</span>}
+                </div>
+                <h3>{projekt.data.titel}</h3>
+                {projekt.data.ort && <p class="projekt-karte__ort">📍 {projekt.data.ort}</p>}
+                <span class="projekt-karte__mehr">Zum Projekt →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="platzhalter">
+          <div class="platzhalter__grid">
+            <img src="/bilder/designs/Screenshot gesamt Projekt Billerbeck.png" alt="Projekt Billerbeck" class="platzhalter__bild" />
+            <img src="/bilder/designs/Screenshot Projekt Lahntal.png" alt="Projekt Lahntal" class="platzhalter__bild" />
+            <img src="/bilder/designs/Permakultur-Projekt bei Coesfeld_Entwurf.jpg" alt="Projekt Coesfeld" class="platzhalter__bild" />
+            <img src="/bilder/designs/Waldgarten bei Aurich_finaler Entwurf.png" alt="Waldgarten Aurich" class="platzhalter__bild" />
+          </div>
+          <p style="text-align: center; color: var(--farbe-text-hell); margin-top: 2rem;">Detaillierte Projektbeschreibungen folgen in Kürze.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Entwurfs-Galerie -->
+  <section class="sektion sektion--hell">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Planungszeichnungen</h2>
+        <div class="trennlinie"></div>
+        <p>Jedes Projekt beginnt mit einer sorgfältigen Analyse und Planung</p>
+      </div>
+      <div class="entwurfs-grid">
+        <figure>
+          <img src="/bilder/designs/Screenshot 1. Entwurf Projekt Billerbeck.png" alt="Erster Entwurf Billerbeck" />
+          <figcaption>Erster Entwurf — Projekt Billerbeck</figcaption>
+        </figure>
+        <figure>
+          <img src="/bilder/designs/Screenshot gesamt Projekt Billerbeck.png" alt="Gesamtplan Billerbeck" />
+          <figcaption>Gesamtplan — Projekt Billerbeck</figcaption>
+        </figure>
+        <figure>
+          <img src="/bilder/designs/Waldgarten bei Aurich_finaler Entwurf.png" alt="Waldgarten Aurich" />
+          <figcaption>Finaler Entwurf — Waldgarten bei Aurich</figcaption>
+        </figure>
+        <figure>
+          <img src="/bilder/designs/Permakultur-Projekt bei Coesfeld_Entwurf.jpg" alt="Permakultur Coesfeld" />
+          <figcaption>Permakultur-Projekt bei Coesfeld</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Dein Projekt als nächstes?</h2>
+      <a href="/kontakt" class="btn btn--sekundaer">Jetzt anfragen</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .seiten-hero {
+    position: relative; height: 50vh; min-height: 350px;
+    display: flex; align-items: flex-end; padding-bottom: 3rem; padding-top: 80px;
+  }
+  .seiten-hero__bild-wrapper { position: absolute; inset: 0; }
+  .seiten-hero__bild-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .seiten-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.8) 0%, rgba(44,44,44,0.3) 60%); }
+  .seiten-hero__inhalt { position: relative; z-index: 1; color: white; }
+  .seiten-hero__label { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.5rem; }
+  .seiten-hero__inhalt h1 { color: white; }
+
+  .projekt-karte {
+    display: block;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--schatten-s);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .projekt-karte:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--schatten-m);
+  }
+
+  .projekt-karte__bild {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+
+  .projekt-karte__bild--placeholder {
+    background: rgba(61,90,42,0.1);
+  }
+
+  .projekt-karte__inhalt { padding: 1.5rem; }
+
+  .projekt-karte__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(91,122,74,0.1);
+    color: var(--farbe-oliv);
+    border: 1px solid rgba(91,122,74,0.3);
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .projekt-karte__jahr {
+    color: var(--farbe-text-hell);
+    font-size: 0.85rem;
+  }
+
+  .projekt-karte h3 { margin-bottom: 0.4rem; font-size: 1.2rem; }
+
+  .projekt-karte__ort {
+    color: var(--farbe-text-hell);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .projekt-karte__mehr {
+    color: var(--farbe-oliv);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .platzhalter__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .platzhalter__bild {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--schatten-s);
+  }
+
+  .entwurfs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .entwurfs-grid figure { margin: 0; }
+
+  .entwurfs-grid img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: var(--schatten-s);
+  }
+
+  .entwurfs-grid figcaption {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--farbe-text-hell);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xl) 0;
+    text-align: center;
+    color: white;
+  }
+  .cta-banner h2 { color: white; margin-bottom: 1.5rem; }
+
+  @media (max-width: 768px) {
+    .platzhalter__grid,
+    .entwurfs-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projekte = await getCollection('projekte', ({ data }) => data.featured);
+const naechsteTermine = (await getCollection('termine', ({ data }) => data.aktiv))
+  .sort((a, b) => a.data.datum.localeCompare(b.data.datum))
+  .slice(0, 3);
+---
+
+<BaseLayout titel="Essbare Landschaften erschaffen" beschreibung="Permakultur-Beratung, Agroforst-Coaching und Wildnis-Kurse mit NaturRaum. Natur wahrnehmen und gestalten.">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bild-wrapper">
+      <img
+        src="/bilder/Waldgärten/Hochsommer im Waldgarten Ahaus.jpg"
+        alt="Waldgarten im Hochsommer"
+        class="hero__bild"
+      />
+      <div class="hero__overlay"></div>
+    </div>
+    <div class="container hero__inhalt">
+      <p class="hero__kategorie">Permakultur · Agroforst · Waldgärten</p>
+      <h1 class="hero__titel">Essbare Landschaften<br />erschaffen und erleben</h1>
+      <p class="hero__text">
+        Beratung, Coaching und Kurse rund um Permakultur, Agroforst und essbare Wildpflanzen —
+        für Landwirte, Gartenbesitzer und Kommunen.
+      </p>
+      <div class="hero__buttons">
+        <a href="/termine" class="btn btn--primaer">Kursprogramm ansehen</a>
+        <a href="/kontakt" class="btn btn--sekundaer">Beratungstermin anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leistungen-Überblick -->
+  <section class="sektion">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Was ich anbiete</h2>
+        <div class="trennlinie"></div>
+        <p>
+          Das verbindende Thema hinter allem: <strong>Essbare Landschaften</strong> —
+          von der ersten Beratung bis zum fertigen Waldgarten.
+        </p>
+      </div>
+      <div class="grid-3">
+        <a href="/leistungen/beratung" class="leistungs-karte">
+          <div class="leistungs-karte__icon">🌿</div>
+          <h3>Beratung</h3>
+          <p>Gezielte Tipps und Planung für Permakultur, Agroforst und Waldgarten — in einem überschaubaren Zeitrahmen.</p>
+          <span class="leistungs-karte__mehr">Mehr erfahren →</span>
+        </a>
+        <a href="/leistungen/coaching" class="leistungs-karte leistungs-karte--hervor">
+          <div class="leistungs-karte__icon">🌳</div>
+          <h3>Coaching</h3>
+          <p>Das Komplett-Paket: Ich begleite dich von der ersten Idee bis zur fertigen Umsetzung — Schritt für Schritt.</p>
+          <span class="leistungs-karte__mehr">Mehr erfahren →</span>
+        </a>
+        <a href="/leistungen/kurse" class="leistungs-karte">
+          <div class="leistungs-karte__icon">🌱</div>
+          <h3>Kurse & Workshops</h3>
+          <p>Von Wildnispädagogik bis BushCraft — praktische Kurse für alle, die die Natur tiefer verstehen wollen.</p>
+          <span class="leistungs-karte__mehr">Mehr erfahren →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Über-mich Teaser -->
+  <section class="sektion sektion--hell">
+    <div class="container ueber-teaser">
+      <div class="ueber-teaser__bild">
+        <img
+          src="/bilder/Waldgärten/Eingang Waldgarten Ahaus.JPG"
+          alt="Waldgarten-Eingang"
+        />
+      </div>
+      <div class="ueber-teaser__text">
+        <p class="ueber-teaser__label">Über mich</p>
+        <h2>20 Jahre gelebte Permakultur</h2>
+        <div class="trennlinie" style="margin: 1rem 0;"></div>
+        <p>
+          Als zertifizierter Permakultur-Designer, Agroforst-Berater und Wildnispädagoge begleite
+          ich Menschen und Organisationen dabei, essbare und naturnahe Landschaften zu gestalten.
+        </p>
+        <p>
+          Mein eigener Waldgarten in Ahaus — seit 2008 gewachsen — ist lebendiges Zeugnis und
+          Lernort zugleich.
+        </p>
+        <div class="ueber-teaser__zertifikate">
+          <span class="badge">PDC Jeff Lawton</span>
+          <span class="badge">Agroforst DeFAF</span>
+          <span class="badge">Wildnispädagogik</span>
+          <span class="badge">20 Jahre Lehrerfahrung</span>
+        </div>
+        <a href="/ueber-mich" class="btn btn--outline" style="margin-top: 1.5rem;">Mehr über mich</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aktuelle Termine -->
+  {naechsteTermine.length > 0 && (
+    <section class="sektion">
+      <div class="container">
+        <div class="abschnitt-kopf">
+          <h2>Nächste Termine</h2>
+          <div class="trennlinie"></div>
+        </div>
+        <div class="grid-3">
+          {naechsteTermine.map(termin => (
+            <div class="termin-karte">
+              <div class="termin-karte__datum">{termin.data.datum}</div>
+              <h4>{termin.data.titel}</h4>
+              <p class="termin-karte__ort">📍 {termin.data.ort}</p>
+              {termin.data.typ && <span class="badge">{termin.data.typ}</span>}
+              {termin.data.buchungslink
+                ? <a href={termin.data.buchungslink} class="btn btn--outline" style="margin-top: 1rem; font-size: 0.9rem;">Anmelden</a>
+                : <a href="/kontakt" class="btn btn--outline" style="margin-top: 1rem; font-size: 0.9rem;">Anfragen</a>
+              }
+            </div>
+          ))}
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem;">
+          <a href="/termine" class="btn btn--primaer">Alle Termine & Kurse</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Bildergalerie Teaser -->
+  <section class="sektion sektion--hell">
+    <div class="container">
+      <div class="abschnitt-kopf">
+        <h2>Aus meiner Arbeit</h2>
+        <div class="trennlinie"></div>
+        <p>Einblicke in Projekte, Waldgärten und Permakultur-Elemente</p>
+      </div>
+      <div class="galerie-grid">
+        <img src="/bilder/Waldgärten/Waldgarten Ahaus, Vogelperspektive.jpg" alt="Waldgarten Ahaus Vogelperspektive" class="galerie-grid__gross" />
+        <img src="/bilder/Permakultur-Elemente/Kräuterspirale.JPG" alt="Kräuterspirale" />
+        <img src="/bilder/Agroforst/dynamischer Agroforst.jpg" alt="Dynamischer Agroforst" />
+        <img src="/bilder/essbare Wildpflanzen/Waldkräuter.jpg" alt="Essbare Waldkräuter" />
+        <img src="/bilder/Wildnispädagogik/Spuren lesen.jpg" alt="Spuren lesen" />
+      </div>
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="/projekte" class="btn btn--outline">Alle Projekte ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Bereit, deinen Garten in eine essbare Landschaft zu verwandeln?</h2>
+      <p>Ob kleine Anfrage oder großes Projekt — ich freue mich auf deine Nachricht.</p>
+      <a href="/kontakt" class="btn btn--sekundaer">Jetzt Kontakt aufnehmen</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px;
+  }
+
+  .hero__bild-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bild {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(44, 44, 44, 0.75) 0%,
+      rgba(44, 44, 44, 0.4) 60%,
+      rgba(44, 44, 44, 0.2) 100%
+    );
+  }
+
+  .hero__inhalt {
+    position: relative;
+    z-index: 1;
+    color: white;
+    max-width: 680px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero__kategorie {
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .hero__titel {
+    color: white;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .hero__text {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 2rem;
+    max-width: 540px;
+    line-height: 1.65;
+  }
+
+  .hero__buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Leistungs-Karten */
+  .leistungs-karte {
+    display: block;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--schatten-s);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  }
+
+  .leistungs-karte:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--schatten-m);
+    border-color: var(--farbe-oliv);
+  }
+
+  .leistungs-karte--hervor {
+    background: linear-gradient(135deg, rgba(123,94,167,0.05), rgba(78,205,196,0.05));
+    border-color: rgba(123,94,167,0.2);
+  }
+
+  .leistungs-karte__icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .leistungs-karte h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+  }
+
+  .leistungs-karte p {
+    color: var(--farbe-text-hell);
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .leistungs-karte__mehr {
+    color: var(--farbe-oliv);
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  /* Über-mich Teaser */
+  .ueber-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .ueber-teaser__bild img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--schatten-m);
+  }
+
+  .ueber-teaser__label {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--farbe-ocker);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .ueber-teaser__zertifikate {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    background: rgba(91,122,74,0.1);
+    color: var(--farbe-oliv);
+    border: 1px solid rgba(91,122,74,0.3);
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* Termin-Karten */
+  .termin-karte {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--schatten-s);
+    border-left: 4px solid var(--farbe-rostrot);
+  }
+
+  .termin-karte__datum {
+    color: var(--farbe-ocker);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .termin-karte h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .termin-karte__ort {
+    color: var(--farbe-text-hell);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Galerie */
+  .galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 220px);
+    gap: 0.75rem;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .galerie-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .galerie-grid img:hover {
+    transform: scale(1.03);
+  }
+
+  .galerie-grid__gross {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xxl) 0;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-banner h2 {
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 1rem;
+  }
+
+  .cta-banner p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .ueber-teaser {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .ueber-teaser__bild img {
+      height: 300px;
+    }
+
+    .galerie-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    .galerie-grid__gross {
+      grid-column: span 2;
+      grid-row: span 1;
+      height: 250px;
+    }
+
+    .galerie-grid img:not(.galerie-grid__gross) {
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      min-height: 75vh;
+    }
+
+    .galerie-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .galerie-grid__gross {
+      grid-column: span 1;
+    }
+  }
+</style>

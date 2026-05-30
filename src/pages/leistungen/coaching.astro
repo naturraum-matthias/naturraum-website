@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout titel="Coaching" beschreibung="Permakultur-Coaching — das Komplett-Paket von der ersten Idee bis zur fertigen essbaren Landschaft.">
+
+  <section class="seiten-hero">
+    <div class="seiten-hero__bild-wrapper">
+      <img src="/bilder/Waldgärten/Blütenmeer Waldgarten Ahaus.JPG" alt="Waldgarten im Frühling" />
+      <div class="seiten-hero__overlay"></div>
+    </div>
+    <div class="container seiten-hero__inhalt">
+      <p class="seiten-hero__label">Leistungen</p>
+      <h1>Coaching</h1>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container container--schmal">
+      <h2>Das Komplett-Paket</h2>
+      <div class="trennlinie" style="margin: 1rem 0;"></div>
+      <p style="font-size: 1.1rem;">
+        Beim Coaching nimmst du nicht nur Wissen mit — ich nehme dich an die Hand.
+        Wir arbeiten gemeinsam von der ersten Idee über die Planung bis zur konkreten Umsetzung.
+        Du wirst bis zum fertigen Ergebnis begleitet.
+      </p>
+    </div>
+  </section>
+
+  <section class="sektion sektion--hell">
+    <div class="container">
+      <div class="grid-2">
+        <div class="coaching-block">
+          <img src="/bilder/Permakultur-Elemente/Hügelbeet mit Mischkultur.JPG" alt="Hügelbeet anlegen" />
+          <div class="coaching-block__text">
+            <h3>Was ist im Coaching enthalten?</h3>
+            <ul class="check-liste">
+              <li>✓ Standortanalyse vor Ort (Boden, Wasser, Klima, Vegetation)</li>
+              <li>✓ Persönliches Permakultur-Design für deine Fläche</li>
+              <li>✓ Schritt-für-Schritt-Umsetzungsplan</li>
+              <li>✓ Begleitung bei der Umsetzung — Pflanzaktionen, Baumaßnahmen</li>
+              <li>✓ Artenlisten und Bezugsquellen-Empfehlungen</li>
+              <li>✓ Laufende Beratung und Anpassung des Plans</li>
+              <li>✓ Abschlussdokumentation deines Projekts</li>
+            </ul>
+          </div>
+        </div>
+        <div class="coaching-block">
+          <img src="/bilder/Waldgärten/Hochsommer im Waldgarten Ahaus.jpg" alt="Reifer Waldgarten" />
+          <div class="coaching-block__text">
+            <h3>Für wen eignet sich Coaching?</h3>
+            <ul class="check-liste">
+              <li>✓ Du willst nicht nur Tipps, sondern Begleitung</li>
+              <li>✓ Dein Projekt ist komplex oder großflächig</li>
+              <li>✓ Du möchtest die Umsetzung sicher angehen</li>
+              <li>✓ Du hast wenig Zeit für Recherche und Fehler</li>
+              <li>✓ Du willst das Beste aus deiner Fläche herausholen</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sektion">
+    <div class="container container--schmal">
+      <div class="abschnitt-kopf">
+        <h2>Themenfelder im Coaching</h2>
+        <div class="trennlinie"></div>
+      </div>
+      <div class="themen-grid">
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🌿</div>
+          <h4>Permakultur</h4>
+          <p>Zonen- und Sektorenplanung, Permakultur-Elemente, Wasserversorgung, Kompostsysteme</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🌳</div>
+          <h4>Agroforst</h4>
+          <p>Gehölz-Acker-Kombinationen, Windschutz, Silvo-Pastoral-Systeme, Fördermöglichkeiten</p>
+        </div>
+        <div class="thema-karte">
+          <div class="thema-karte__icon">🌲</div>
+          <h4>Waldgarten</h4>
+          <p>Schichtenplanung von Kronenbaum bis Bodendecker, Sukzession, Artenvielfalt, Produktivität</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Bereit, dein Projekt in Angriff zu nehmen?</h2>
+      <p>Erzähl mir von deiner Fläche und deinen Plänen — ich melde mich zeitnah.</p>
+      <a href="/kontakt" class="btn btn--sekundaer">Coaching anfragen</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .seiten-hero {
+    position: relative; height: 50vh; min-height: 350px;
+    display: flex; align-items: flex-end; padding-bottom: 3rem; padding-top: 80px;
+  }
+  .seiten-hero__bild-wrapper { position: absolute; inset: 0; }
+  .seiten-hero__bild-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .seiten-hero__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(44,44,44,0.8) 0%, rgba(44,44,44,0.3) 60%); }
+  .seiten-hero__inhalt { position: relative; z-index: 1; color: white; }
+  .seiten-hero__label { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 0.5rem; }
+  .seiten-hero__inhalt h1 { color: white; }
+
+  .coaching-block img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .coaching-block__text {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 0 0 12px 12px;
+    box-shadow: var(--schatten-s);
+  }
+
+  .coaching-block__text h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+
+  .check-liste {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .check-liste li {
+    font-size: 0.95rem;
+    color: var(--farbe-text-hell);
+  }
+
+  .themen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .thema-karte {
+    background: var(--farbe-hintergrund);
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-align: center;
+    border-top: 3px solid var(--farbe-tuerkis);
+  }
+
+  .thema-karte__icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+  .thema-karte h4 { margin-bottom: 0.5rem; }
+  .thema-karte p { color: var(--farbe-text-hell); font-size: 0.9rem; }
+
+  .cta-banner {
+    background: var(--farbe-dunkeloliv);
+    padding: var(--abstand-xl) 0;
+    text-align: center;
+    color: white;
+  }
+  .cta-banner h2 { color: white; margin-bottom: 0.75rem; }
+  .cta-banner p { color: rgba(255,255,255,0.9); margin-bottom: 1.5rem; }
+
+  @media (max-width: 900px) {
+    .themen-grid { grid-template-columns: 1fr; }
+  }
+</style>

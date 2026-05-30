@@ -1,0 +1,174 @@
+---
+const navLinks = [
+  { href: '/', label: 'Start' },
+  { href: '/ueber-mich', label: 'Über mich' },
+  { href: '/leistungen', label: 'Leistungen' },
+  { href: '/projekte', label: 'Projekte' },
+  { href: '/termine', label: 'Termine & Kurse' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+const aktuellePfad = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo" aria-label="NaturRaum – Startseite">
+      <img src="/bilder/allgemein/logo-weiss.png" alt="NaturRaum Logo" width="60" height="60" />
+    </a>
+
+    <nav class="header__nav" aria-label="Hauptnavigation">
+      <ul class="header__nav-liste">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`header__nav-link ${aktuellePfad === link.href || (link.href !== '/' && aktuellePfad.startsWith(link.href)) ? 'header__nav-link--aktiv' : ''}`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="/kontakt" class="btn btn--sekundaer header__cta">Anfrage stellen</a>
+
+    <button class="header__menu-btn" aria-label="Menü öffnen" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <nav class="header__mobile-nav" id="mobileNav" aria-label="Mobile Navigation">
+    <ul>
+      {navLinks.map(link => (
+        <li><a href={link.href} class="header__mobile-link">{link.label}</a></li>
+      ))}
+    </ul>
+    <a href="/kontakt" class="btn btn--primaer" style="margin-top: 1rem; display: block; text-align: center;">Anfrage stellen</a>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #3D5A2A;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .header__logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .header__nav {
+    flex: 1;
+  }
+
+  .header__nav-liste {
+    display: flex;
+    list-style: none;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  .header__nav-link {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.4rem 0.7rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link--aktiv {
+    color: #fff;
+    background-color: rgba(255,255,255,0.2);
+  }
+
+  .header__cta {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+  .header__menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .header__menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .header__mobile-nav {
+    display: none;
+    padding: 1rem var(--abstand-m) 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .header__mobile-nav ul {
+    list-style: none;
+  }
+
+  .header__mobile-link {
+    display: block;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .header__mobile-nav.offen {
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .header__nav,
+    .header__cta {
+      display: none;
+    }
+
+    .header__menu-btn {
+      display: flex;
+      margin-left: auto;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('mobileNav');
+  btn?.addEventListener('click', () => {
+    nav?.classList.toggle('offen');
+  });
+</script>
